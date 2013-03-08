@@ -9,11 +9,12 @@ module Marketo
     attr_accessor :cookie
 
     def self.new_marketo_client(wsdl_endpoint, access_key, secret_key)
-      @client = Savon::Client.new do
-        http.headers["Pragma"] = "no-cache"
-        wsdl.endpoint = wsdl_endpoint #{}"https://na-l.marketo.com/soap/mktows/1_6"
-        wsdl.document = "http://app.marketo.com/soap/mktows/2_0?WSDL"
-      end
+      # @client = Savon::Client.new do
+      #   # http.headers["Pragma"] = "no-cache"
+      #   wsdl.endpoint = wsdl_endpoint #"https://na-l.marketo.com/soap/mktows/1_6"
+      #   wsdl.document = "http://app.marketo.com/soap/mktows/2_0?WSDL"
+      # end
+      @client = Savon.client(:wsdl => "http://app.marketo.com/soap/mktows/2_0?WSDL", :endpoint => wsdl_endpoint)
 
       @header = AuthenticationHeader.new(access_key, secret_key)
 
